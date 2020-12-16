@@ -1,4 +1,4 @@
-name: test_build
+name: build
 
 on:
   push:
@@ -7,39 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  tests:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - uses: actions/cache@v1
-        id: yarn-cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-
-      - name: install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn
-
-      - run: yarn build
-
-      - run: yarn test
-        env:
-          CI: true
-
   build:
-    needs: [tests]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     strategy:
       matrix:
