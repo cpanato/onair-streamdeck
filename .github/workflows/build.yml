@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main '
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -34,14 +34,3 @@ jobs:
         run: yarn
 
       - run: yarn build
-
-      - name: Generate .streamDeckPlugin
-        run: ./tools/mac/DistributionTool -b -i ./dist/dev.cpanato.onair.sdPlugin -o ./release/
-
-      - name: Upload .streamDeckPlugin artifact
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          # Artifact name
-          name: dev.cpanato.onair.streamDeckPlugin
-          # Directory containing files to upload
-          path: ./release/
