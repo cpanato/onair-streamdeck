@@ -1,0 +1,40 @@
+{
+  "name": "dev.cpanato.onair",
+  "version": "1.0.0",
+  "description": "On Air for Stream Deck",
+  "repository": "https://github.com/cpanato/onair-streamdeck.git",
+  "author": "Carlos Panato <ctadeu@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:plugin": "yarn test plugin",
+    "test:plugin:watch": "yarn test:watch plugin",
+    "dev:setup": "parcel src/dev.cpanato.onair.sdPlugin/setup/index.html -d dist/dev.cpanato.onair.sdPlugin/setup --public-url ./",
+    "dev:pi": "parcel src/dev.cpanato.onair.sdPlugin/pi/index.html -d dist/dev.cpanato.onair.sdPlugin/pi --public-url ./ --global connectElgatoStreamDeckSocket",
+    "dev:plugin": "parcel src/dev.cpanato.onair.sdPlugin/plugin/index.html -d dist/dev.cpanato.onair.sdPlugin/plugin --public-url ./ --global connectElgatoStreamDeckSocket",
+    "build:pi": "parcel build src/dev.cpanato.onair.sdPlugin/pi/index.html -d dist/dev.cpanato.onair.sdPlugin/pi --public-url ./ --global connectElgatoStreamDeckSocket",
+    "build:plugin": "parcel build src/dev.cpanato.onair.sdPlugin/plugin/index.html -d dist/dev.cpanato.onair.sdPlugin/plugin --public-url ./ --global connectElgatoStreamDeckSocket",
+    "build": "rm -Rf dist && yarn build:plugin && yarn build:pi && cp manifest.json dist/dev.cpanato.onair.sdPlugin/manifest.json && cp -Rf images dist/dev.cpanato.onair.sdPlugin/images"
+  },
+  "dependencies": {
+    "parcel-bundler": "^1.12.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.5",
+    "@types/react": "^16.9.27",
+    "@types/react-dom": "^16.9.5",
+    "jest": "^25.2.3",
+    "nock": "^12.0.3",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3",
+    "whatwg-fetch": "^3.0.0"
+  }
+}

@@ -1,0 +1,77 @@
+name: test_build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: actions/cache@v1
+        id: yarn-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn
+
+      - run: yarn build
+
+      - run: yarn test
+        env:
+          CI: true
+
+  build:
+    needs: [tests]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: actions/cache@v1
+        id: yarn-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn
+
+      - run: yarn build
+
+      - name: Generate .streamDeckPlugin
+        run: ./tools/mac/DistributionTool -b -i ./dist/dev.cpanato.onair.sdPlugin -o ./release/
+
+      - name: Upload .streamDeckPlugin artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          # Artifact name
+          name: dev.cpanato.onair.streamDeckPlugin
+          # Directory containing files to upload
+          path: ./release/

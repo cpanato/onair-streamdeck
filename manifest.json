@@ -1,0 +1,52 @@
+{
+  "Actions": [
+    {
+      "Icon": "images/onair/actionIcon",
+      "Name": "OnAir Status",
+      "States": [
+        {
+          "Image": "images/onair/actionSuccessImage",
+          "TitleAlignment": "bottom",
+          "FontSize": "11"
+        },
+        {
+          "Image": "images/onair/actionFailImage",
+          "TitleAlignment": "bottom",
+          "FontSize": "11"
+        },
+        {
+          "Image": "images/onair/actionDefaultImage",
+          "TitleAlignment": "bottom",
+          "FontSize": "11"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Show your On Air status",
+      "UUID": "dev.cpanato.onair"
+    }
+  ],
+  "SDKVersion": 2,
+  "Author": "cpanato",
+  "PropertyInspectorPath": "pi/index.html",
+  "Category": "OnAir Status for Stream Deck",
+  "CategoryIcon": "images/categoryIcon",
+  "CodePath": "plugin/index.html",
+  "Description": "Show your On Air status.",
+  "Name": "On Air for StreamDeck",
+  "Icon": "images/pluginIcon",
+  "URL": "https://cpanato.dev",
+  "Version": "1.0.0",
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "10.11"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "4.1"
+  }
+}
