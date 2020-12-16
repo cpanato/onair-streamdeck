@@ -8,7 +8,6 @@ in action: https://twitter.com/comedordexis/status/1268549324092387340
 
 With any StreamDeck you just install the latest release and then configure the IP address from the hardware you setup and that is it
 
-
 # How to setup the dev environment
 
 1. Install all the dependencies
